@@ -33,6 +33,8 @@ gstore %>% group_by(App,Installs) %>% summarize(Reviews=mean(Reviews)) %>%
   coord_flip()
 
 
-
+##plot ratings against reviews colored by category
+gstore%>% group_by(App,Category)%>%summarize(Reviews=mean(Reviews),Rating=mean(Rating))%>%
+  ggplot()+geom_point(aes(y=Rating,x=Reviews,color=Category))
 
                       
