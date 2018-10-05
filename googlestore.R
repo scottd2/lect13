@@ -10,7 +10,7 @@ gstore %>% group_by(App) %>%
 
 #data cleaning
 gstore<-gstore %>% 
-  filter(!is.na(Category),Type !="NaN",!is.nan(Rating))
+  filter(!is.na(Category),Type !="NaN",!is.nan(Rating),Rating<=5)
 
 
 
@@ -38,3 +38,9 @@ gstore%>% group_by(App,Category)%>%summarize(Reviews=mean(Reviews),Rating=mean(R
   ggplot()+geom_point(aes(y=Rating,x=Reviews,color=Category))
 
                       
+#plot rating by category, order ategories by median rating
+gstore %>% group_by(App,Category) %>% 
+  summarize(Rating=mean(Rating)) %>%
+  ggplot+geom_boxplot(notch=TRUE,aes(reorder(Category,Rating,median),Rating))+
+  coord_flip()
+
