@@ -44,3 +44,10 @@ gstore %>% group_by(App,Category) %>%
   ggplot+geom_boxplot(notch=TRUE,aes(reorder(Category,Rating,median),Rating))+
   coord_flip()
 
+#rank apps by ratings and reviews
+
+gstore %>% group_by(App)%>%summarize(Rating=mean(Rating),Reviews=mean(Reviews))%>%
+  filter(Reviews>1000)%>%
+  arrange(desc(Rating),desc(Reviews))
+
+          
